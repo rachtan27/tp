@@ -41,11 +41,13 @@ public class Person {
 
     private final Favorite isFavorite;
 
+    private final Remark remark;
+
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Gender gender,
-                  Major major, Modules modules, Race race, Set<Tag> tags, CommunicationChannel comms) {
+                  Major major, Modules modules, Race race, Set<Tag> tags, CommunicationChannel comms, Remark remark) {
         requireAllNonNull(name);
         this.name = name;
 
@@ -59,6 +61,7 @@ public class Person {
         this.race = race;
         this.comms = comms;
         this.isFavorite = new Favorite(false);
+        this.remark = remark;
     }
 
     /**
@@ -67,7 +70,7 @@ public class Person {
      */
     public Person(Name name, Phone phone, Email email, Address address, Gender gender,
                   Major major, Modules modules, Race race, Set<Tag> tags, CommunicationChannel comms,
-                  Favorite favorite) {
+                  Favorite favorite, Remark remark) {
         requireAllNonNull(name, favorite);
         this.name = name;
         this.isFavorite = favorite;
@@ -81,7 +84,9 @@ public class Person {
         this.modules = modules;
         this.race = race;
         this.comms = comms;
+        this.remark = remark;
     }
+
 
     public Name getName() {
         return name;
@@ -111,6 +116,10 @@ public class Person {
         return isFavorite;
     }
 
+    public Remark getRemark() {
+        return remark;
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
@@ -130,7 +139,7 @@ public class Person {
     public Person favorite() {
         Favorite newFavorite = new Favorite(true);
         return new Person(name, phone, email, address, gender,
-                major, modules, race, tags, comms, newFavorite);
+                major, modules, race, tags, comms, newFavorite, remark);
     }
 
     /**
@@ -139,8 +148,10 @@ public class Person {
     public Person unfavorite() {
         Favorite newFavorite = new Favorite(false);
         return new Person(name, phone, email, address, gender,
-                major, modules, race, tags, comms, newFavorite);
+                major, modules, race, tags, comms, newFavorite, remark);
     }
+
+
 
     /**
      * Returns true if both persons have the same identity and data fields.

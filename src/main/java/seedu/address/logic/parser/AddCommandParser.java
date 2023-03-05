@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.fields.Address;
 import seedu.address.model.person.fields.CommunicationChannel;
 import seedu.address.model.person.fields.Email;
@@ -59,8 +60,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Modules modules = ParserUtil.parseModules(argMultimap.getAllValues(PREFIX_MODULES));
         Race race = ParserUtil.parseRace(argMultimap.getValue(PREFIX_RACE).orElse(""));
         CommunicationChannel comms = ParserUtil.parseComms(argMultimap.getValue(PREFIX_COMMS).orElse(""));
-
-        Person person = new Person(name, phone, email, address, gender, major, modules, race, tagList, comms);
+        Remark remark = new Remark("");
+        Person person = new Person(name, phone, email, address, gender, major, modules, race, tagList, comms, remark);
 
         return new AddCommand(person);
     }

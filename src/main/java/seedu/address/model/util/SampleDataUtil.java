@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.fields.Gender;
 import seedu.address.model.person.fields.Major;
 import seedu.address.model.person.fields.Modules;
@@ -27,6 +28,7 @@ public class SampleDataUtil {
         Major major = new Major("Computer Science");
         Modules modules = new Modules(mods);
         Race race = new Race("Chinese");
+        Remark remark = new Remark(" ");
 
 
         return new Person[] {

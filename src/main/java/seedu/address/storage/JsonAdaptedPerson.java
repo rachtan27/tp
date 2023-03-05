@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.fields.Address;
 import seedu.address.model.person.fields.CommunicationChannel;
 import seedu.address.model.person.fields.Email;
@@ -42,6 +43,8 @@ class JsonAdaptedPerson {
 
     private final String isFavorite;
 
+    private final String remark;
+
     private final List<JsonAdaptedNusMod> modules = new ArrayList<>();
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -56,7 +59,8 @@ class JsonAdaptedPerson {
                              @JsonProperty("comms") String comms,
                              @JsonProperty("modules") List<JsonAdaptedNusMod> modules,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                             @JsonProperty("favorite") String isFavorite) {
+                             @JsonProperty("favorite") String isFavorite,
+                             @JsonProperty("remark") String remark) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -67,6 +71,7 @@ class JsonAdaptedPerson {
         this.gender = gender;
         this.comms = comms;
         this.isFavorite = isFavorite;
+        this.remark = remark;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -95,6 +100,7 @@ class JsonAdaptedPerson {
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
         this.isFavorite = source.getIsFavorite().toString();
+        this.remark = source.getRemark().value;
     }
 
     /**
@@ -169,9 +175,11 @@ class JsonAdaptedPerson {
 
         CommunicationChannel modelComms = new CommunicationChannel(this.comms);
 
+        final Remark modelRemark = new Remark(remark);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelGender, modelMajor,
-                modelModules, modelRace, modelTags, modelComms, favoriteStatus);
+                modelModules, modelRace, modelTags, modelComms, favoriteStatus, modelRemark);
     }
 
 }

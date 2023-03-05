@@ -20,6 +20,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.fields.Address;
 import seedu.address.model.person.fields.CommunicationChannel;
 import seedu.address.model.person.fields.Email;
@@ -109,11 +110,12 @@ public class EditCommand extends Command {
         Race updatedRace = editPersonDescriptor.getRace().orElse(personToEdit.getRace());
         CommunicationChannel updatedComms = editPersonDescriptor.getComms().orElse(personToEdit.getComms());
         Favorite currentFavorite = personToEdit.getIsFavorite();
+        Remark  updatedRemark = editPersonDescriptor.getRemark().orElse(personToEdit.getRemark());
 
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
-                updatedGender, updatedMajor, updatedModules, updatedRace, updatedTags, updatedComms, currentFavorite);
+                updatedGender, updatedMajor, updatedModules, updatedRace, updatedTags, updatedComms, currentFavorite, updatedRemark);
     }
 
     @Override
@@ -150,6 +152,8 @@ public class EditCommand extends Command {
         private Modules modules;
         private CommunicationChannel comms;
 
+        private Remark remark;
+
         public EditPersonDescriptor() {}
 
         /**
@@ -167,13 +171,14 @@ public class EditCommand extends Command {
             setRace(toCopy.race);
             setModules(toCopy.modules);
             setComms(toCopy.comms);
+            setRemark(toCopy.remark);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, gender, major, race, modules, comms);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, gender, major, race, modules, comms, remark);
         }
 
         public void setName(Name name) {
@@ -202,6 +207,10 @@ public class EditCommand extends Command {
 
         public void setAddress(Address address) {
             this.address = address;
+        }
+
+        public void setRemark(Remark remark) {
+            this.remark = remark;
         }
 
         public Optional<Address> getAddress() {
@@ -285,6 +294,10 @@ public class EditCommand extends Command {
 
         public void setComms(CommunicationChannel comms) {
             this.comms = comms;
+        }
+
+        public Optional<Remark> getRemark() {
+            return Optional.ofNullable(this.remark);
         }
     }
 }
